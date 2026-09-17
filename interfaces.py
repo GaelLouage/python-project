@@ -8,7 +8,7 @@ class PaymentProcessor(ABC):
      pass
 
  @abstractmethod
- def refund(self, transaction_id: str) -> bool:
+ def refund(self, request: RefundRequest) -> bool:
     pass
  
  @property

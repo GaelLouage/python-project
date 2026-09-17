@@ -1,4 +1,4 @@
-from models import PaymentRequest, PaymentResult
+from models import PaymentRequest, PaymentResult, RefundRequest
 from interfaces import PaymentProcessor
 from exceptions import PaymentError, InvalidPaymentRequest
 from payments import Payments
@@ -9,7 +9,7 @@ import re
 class CheckoutService:
  def __init__(self, processors: list[PaymentProcessor]):
         self.processors = processors
-    
+
 
  
  def pay(
@@ -17,6 +17,7 @@ class CheckoutService:
  processor_name: str,
  request: PaymentRequest,
  ) -> PaymentResult:   
+
        return Payments.GetPaymentType(processor_name).process(request)
 
         
@@ -25,10 +26,9 @@ class CheckoutService:
  def refund(
  self,
  processor_name: str,
- transaction_id: str,
+ request: RefundRequest,
  ) -> bool:
- # TODO
-    pass
+       return Payments.GetPaymentType(processor_name).refund(request)
 
 
 

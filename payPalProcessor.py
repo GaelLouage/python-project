@@ -4,15 +4,14 @@ from interfaces import PaymentProcessor
 from mapper import Mapper
 from helpers import Helpers
 from exceptions import InvalidPaymentRequest
+from models import RefundRequest,PaymentRequest
 
 class PayPalProcessor(PaymentProcessor):
  def __init__(self):
- # TODO
    pass
  
  @property
  def supported_currencies(self) -> set[str]:
- # TODO
     pass
  
  def process(self, request: PaymentRequest) -> PaymentResult:
@@ -27,7 +26,12 @@ class PayPalProcessor(PaymentProcessor):
          return mapToResult
 
  
- def refund(self, transaction_id: str) -> bool:
- # TODO
-    pass
+ def refund(self, request: RefundRequest) -> bool:
+     valid, message = Helpers.validation(request)
+     if not valid:
+           raise InvalidPaymentRequest(message)
+
+       
+
+     return True
  

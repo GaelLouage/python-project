@@ -18,7 +18,7 @@ from exceptions import (
 
 
 class Payments:
-    def GetPaymentType(payemntMethod:string) -> PaymentProcessor :
+    def GetPaymentType(payemntMethod:str) -> PaymentProcessor :
                   match payemntMethod:
                              case "PAYPAL":
                                  return PayPalProcessor()
