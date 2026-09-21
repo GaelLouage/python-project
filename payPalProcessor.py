@@ -21,7 +21,7 @@ class PayPalProcessor(PaymentProcessor):
          if not valid:
             raise InvalidPaymentRequest(message)
 
-       
+        
          mapToResult = Mapper.payment_request_mapper(request)
          return mapToResult
 
@@ -31,7 +31,7 @@ class PayPalProcessor(PaymentProcessor):
      if not valid:
            raise InvalidPaymentRequest(message)
 
-       
-
+      
+     
      return True
  

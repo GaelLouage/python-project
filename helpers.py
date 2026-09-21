@@ -1,4 +1,6 @@
 import re
+from interfaces import PaymentProcessor
+from models import PaymentRequest
 
 class Helpers:
     @staticmethod
@@ -19,5 +21,27 @@ class Helpers:
         if not request.currency.strip():
          return False, "Currency cannot be empty!"
 
+          
 
         return True, "Success"
+
+
+    def orderId_validation(paymentsRequests:list[PaymentRequest], request:PaymentRequest) -> tuple[bool, str]:
+        for payment in paymentsRequests:
+            if payment.order_id == request.order_id:
+                      return True, "Success"
+
+
+        return False, "Invalid PAYMENT order id"
+
+
+
+    def orderId_validation(paymentsRequests:list[PaymentRequest], request:RefundRequest) -> tuple[bool, str]:
+        for payment in paymentsRequests:
+            if payment.order_id == request.order_id:
+                      return True, "Success"
+
+            
+
+        return False, "Invalid REQUEST order id"
+

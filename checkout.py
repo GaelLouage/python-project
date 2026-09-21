@@ -7,8 +7,8 @@ from helpers import Helpers
 import re
 
 class CheckoutService:
- def __init__(self, processors: list[PaymentProcessor]):
-        self.processors = processors
+ def __init__(self, paymentsRequests:list[PaymentRequest]):
+        self.paymentsRequests = paymentsRequests
 
 
  
@@ -17,8 +17,11 @@ class CheckoutService:
  processor_name: str,
  request: PaymentRequest,
  ) -> PaymentResult:   
+      value, message = Helpers.orderId_validation(self.paymentsRequests, request)
+      if not value:
+            raise InvalidPaymentRequest(message)
 
-       return Payments.GetPaymentType(processor_name).process(request)
+      return Payments.GetPaymentType(processor_name).process(request)
 
         
 
@@ -28,7 +31,12 @@ class CheckoutService:
  processor_name: str,
  request: RefundRequest,
  ) -> bool:
-       return Payments.GetPaymentType(processor_name).refund(request)
+      value, message = Helpers.orderId_validation(self.paymentsRequests, request)
+      if not value:
+            raise InvalidPaymentRequest(message)
+
+
+      return Payments.GetPaymentType(processor_name).refund(request)
 
 
 
